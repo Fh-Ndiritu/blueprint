@@ -32,7 +32,6 @@
       font-semibold
       shadow-md
       hover:bg-[var(--color-text-accent)]
-      hover:-translate-y-1
       hover:shadow-lg
       focus:outline-none
       focus:ring-4 focus:ring-accent/50
@@ -135,4 +134,99 @@
 .authentication input[type='checkbox'] {
   width: auto;
   cursor: pointer;
+}
+
+@layer components {
+  .form-container {
+    background-color: var(--color-primary);
+    @apply
+      text-text-light
+      shadow
+      rounded-[25px]
+      p-[35px]
+      mx-auto
+      my-[5vh]
+      max-w-xl
+      min-w-[30vw];
+  }
+
+  .form-container h2 {
+    @apply
+      text-[1.5rem]
+      font-bold
+      mb-4
+      text-text-light;
+  }
+
+  .form-container label {
+    @apply
+      block
+      text-[1rem]
+      font-medium
+      mb-1
+      text-text-light;
+  }
+
+  .form-container input:not([type='checkbox']),
+  .form-container textarea,
+  .form-container select {
+    @apply
+      w-full
+      mb-4
+      px-[15px] py-[10px]
+      bg-neutral-100
+      text-text-dark
+      rounded-[10px]
+      border
+      border-transparent
+      outline-none
+      mt-[0.6rem]
+      focus:bg-white
+      focus:border-secondary
+      transition-colors
+      duration-200;
+  }
+
+  .form-container input:not([type='checkbox'])::placeholder,
+  .form-container textarea::placeholder {
+    @apply text-neutral-500;
+  }
+
+  .form-container :disabled {
+    @apply
+      bg-neutral-800
+      text-neutral-600
+      cursor-not-allowed;
+  }
+
+  .form-container .disabled label {
+    @apply text-neutral-600;
+  }
+
+  .form-container .actions {
+    @apply
+      w-full
+      flex
+      justify-center
+      mt-6;
+  }
+
+  .form-container .actions input[type='submit'] {
+    @apply
+      bg-secondary
+      text-white
+      hover:bg-accent
+      focus:bg-accent
+      transition-colors
+      duration-200
+      px-[32px] py-[10px]
+      rounded-[5px]
+      btn;
+  }
+
+  .form-container input[type='checkbox'] {
+    @apply
+      w-auto
+      cursor-pointer;
+  }
 }
