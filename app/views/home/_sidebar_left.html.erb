@@ -1,0 +1,30 @@
+<!--# here we can just use the groups partials-->
+
+  <div class="py-6 flex justify-between px-4">
+    <%= link_to "Edit profile", edit_profile_path, class: "btn" %>
+    <%= link_to "Log out", destroy_user_session_path, class: "btn", data: { turbo_method: :delete, turbo_frame: '_top' } if user_signed_in? %>
+  </div>
+<!--@your_groups-->
+<!--@other_groups-->
+
+  <% if @your_groups.any? || @other_groups.any? %>
+      <h2 class="text-base my-3 text-accent ">Your groups</h2>
+        <% @your_groups.each do |group| %>
+          <div class="flex flex-col w-full sm:flex-row justify-between items-center pb-5 sm:pb-0 bg-white my-4">
+            <%#= render partial: 'group_preview', locals: { group: group} %>
+            <%= render partial: 'groups/group_preview', object: group, as: 'group' %>
+<!--            You can also pass a default variable that takes the partials name-->
+            <%#= render partial: 'group_preview', object: group %>
+<!--            Access in partials as group_preview.class.is_a?(Group) == true-->
+          </div>
+        <% end %>
+
+     <h2 class="text-base my-3 text-primary ">Other groups: Request to join</h2>
+      <% @other_groups.each do |group| %>
+      <div class="flex flex-col w-full sm:flex-row justify-between items-center pb-5 sm:pb-0 bg-white my-4 ">
+        <%= render partial: 'groups/group_preview', object: group, as: 'group' %>
+      </div>
+      <% end %>
+    <% else %>
+      <p class="text-center my-10">No groups found.</p>
+    <% end %>

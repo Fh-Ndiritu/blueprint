@@ -1,0 +1,36 @@
+<%= form_with(model: profile, class: "contents") do |form| %>
+  <% if profile.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
+      <h2><%= pluralize(profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
+
+      <ul class="list-disc ml-6">
+        <% profile.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="my-5">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": profile.errors[:name].none?, "border-red-400 focus:outline-red-600": profile.errors[:name].any?}], placeholder: "Username" %>
+  </div>
+
+
+  <div class="my-5">
+    <% if profile.avatar.attached? %>
+      <%= content_tag :span, "current picture: #{profile.avatar.filename}", class: "text-sm"  %>
+    <% end %>
+    <%= form.label :avatar %>
+    <%= form.file_field :avatar, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": profile.errors[:avatar].none?, "border-red-400 focus:outline-red-600": profile.errors[:avatar].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :bio %>
+    <%= form.textarea :bio, rows: 4, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": profile.errors[:bio].none?, "border-red-400 focus:outline-red-600": profile.errors[:bio].any?}] %>
+  </div>
+
+  <div class="inline">
+    <%= form.submit class: "btn" %>
+  </div>
+<% end %>

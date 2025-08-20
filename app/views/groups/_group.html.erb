@@ -1,0 +1,25 @@
+<div class="flex flex-row items-center justify-between p-2 bg-white border-b border-gray-200 container">
+  <div class="flex items-center space-x-4 mb-4">
+    <div class="flex-shrink-0">
+      <%= image_tag group.logo, class: "h-16 w-16 rounded-full object-cover" if group.logo.attached? %>
+    </div>
+
+    <div class="flex flex-col">
+      <h1 class="text-2xl font-bold text-gray-800">
+        <%= group.title %>
+      </h1>
+      <p class="line-clamp-3"><%= group.description %></p>
+      <p class="text-sm text-gray-500">
+        <%= pluralize(group.group_users.count, 'member') %>
+      </p>
+    </div>
+  </div>
+
+  <div class="flex ">
+    <% if group.member(current_user).present? %>
+      <%= button_to "Leave Group", group_user_path(group.member(current_user)), method: :delete, class: "cute-btn secondary-btn" %>
+    <% else %>
+      <%= button_to "Join Group", group_group_users_path(group), method: :post, data: {turbo: false},  class: "cute-btn accent-btn" %>
+    <% end %>
+  </div>
+</div>

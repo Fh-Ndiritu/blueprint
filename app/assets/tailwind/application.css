@@ -1,1 +1,237 @@
 @import "tailwindcss";
+
+@theme {
+  --color-primary: #3a98cc;    /* Ocean Blue */
+  --color-secondary: #f9a13e;  /* Sunset Orange */
+  --color-accent: #eb5b8a;     /* Magenta */
+
+  --color-neutral-100: #f5f5f5; /* Light Sand */
+  --color-neutral-300: #e2e8f0; /* Light Gray */
+  --color-neutral-500: #a0aec0; /* Medium Gray */
+  --color-neutral-700: #4a5568; /* Dark Gray */
+  --color-neutral-800: #2c3641; /* Slightly darker */
+  --color-neutral-900: #192b3a; /* Midnight Blue */
+
+  --color-text-dark: #192b3a;   /* Midnight Blue */
+  --color-text-light: #f5f5f5;  /* Light Sand */
+
+  --color-text-primary: #2c739a;    /* Dark Ocean */
+  --color-text-secondary: #d97d29;  /* Dark Sunset */
+  --color-text-accent: #a8406b;     /* Dark Magenta */
+}
+
+
+@layer components {
+  .btn {
+  @apply w-auto px-5 opacity-70 bg-secondary text-text-light py-3 hover:opacity-100 transition-colors duration-300 transition-all text-base rounded-lg mt-2 mb-6 cursor-pointer;
+  }
+
+  .cute-btn {
+    @apply inline-flex items-center justify-center w-auto rounded-full px-4 py-2 font-semibold text-base text-white
+          shadow-lg transform transition-all duration-200 hover:scale-105 active:scale-95 my-3 cursor-pointer text-center;
+  }
+  .secondary-btn {
+    @apply bg-pink-400 hover:bg-primary;
+  }
+  .accent-btn {
+    @apply bg-accent hover:bg-secondary;
+  }
+  .primary-btn {
+    @apply bg-primary hover:bg-secondary;
+  }
+
+  .nav-btn {
+    @apply inline-flex items-center justify-center font-semibold py-2 px-4 rounded-lg cursor-pointer hover:text-white hover:bg-secondary duration-200 transition-all gap-2 text-neutral-900;
+  }
+}
+
+.authentication {
+  color: var(--color-text-light);
+}
+
+.authentication .card {
+  background-color: var(--color-primary);
+  display: flex;
+  border-radius: 25px;
+  padding: 35px;
+  @apply shadow m-auto flex flex-col justify-center items-center w-auto;
+  min-width: 30vw;
+  margin-top: 5vh;
+}
+
+.authentication form,
+.authentication .field input {
+  width: 100%;
+  text-align: left;
+}
+
+.authentication h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.authentication .field label {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+.authentication .field {
+  margin: 1rem 0;
+}
+
+.authentication input:focus {
+  outline: none;
+  ring: 0;
+  border: 1px solid var(--color-text-secondary);
+}
+
+.shared_links a:hover {
+  color: var(--color-secondary);
+}
+
+.authentication input,
+.authentication textarea,
+.authentication select,
+.authentication select option {
+  background: gainsboro !important;
+  padding: 10px 15px !important;
+  color: var(--color-text-dark) !important;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  margin-top: 0.6rem;
+  &::placeholder {
+    color: #9b9b9b !important;
+  }
+}
+
+.authentication input:focus,
+.authentication textarea:focus,
+.authentication select option:hover {
+  background: #ffffff !important;
+}
+
+.authentication :disabled {
+  background: #3d4142 !important;
+  color: #777979 !important;
+}
+
+.authentication .disabled label {
+  color: #777979;
+}
+.authentication .actions {
+  width: 100%;
+  display: flex;
+  margin-top: 2rem;
+}
+.authentication .actions input {
+  padding: 10px 32px !important;
+  border-radius: 5px !important;
+  background-color: var(--color-secondary) !important;
+  border: none;
+  color: white !important;
+  margin: auto;
+}
+.authentication .actions input:hover {
+  cursor: pointer;
+  background-color: var(--color-accent) !important;
+  transition-duration: 200ms;
+}
+
+.authentication input[type='checkbox'] {
+  width: auto;
+  cursor: pointer;
+}
+
+@layer components {
+  .form-container {
+    background-color: var(--color-primary);
+    @apply
+      text-text-light
+      shadow
+      rounded-[25px]
+      p-[35px]
+      mx-auto
+      my-[5vh]
+      max-w-xl
+      min-w-[30vw];
+  }
+
+  .form-container h2 {
+    @apply
+      text-[1.5rem]
+      font-bold
+      mb-4
+      text-text-light;
+  }
+
+  .form-container label {
+    @apply
+      block
+      text-[1rem]
+      font-medium
+      mb-1
+      text-text-light;
+  }
+
+  .form-container input:not([type='checkbox']),
+  .form-container textarea,
+  .form-container select {
+    @apply
+      w-full
+      mb-4
+      px-[15px] py-[10px]
+      bg-neutral-100
+      text-text-dark
+      rounded-[10px]
+      border
+      border-transparent
+      outline-none
+      mt-[0.6rem]
+      focus:bg-white
+      focus:border-secondary
+      transition-colors
+      duration-200;
+  }
+
+  .form-container input:not([type='checkbox'])::placeholder,
+  .form-container textarea::placeholder {
+    @apply text-neutral-500;
+  }
+
+  .form-container :disabled {
+    @apply
+      bg-neutral-800
+      text-neutral-600
+      cursor-not-allowed;
+  }
+
+  .form-container .disabled label {
+    @apply text-neutral-600;
+  }
+
+  .form-container .actions {
+    @apply
+      w-full
+      flex
+      justify-center
+      mt-6;
+  }
+
+  .form-container .actions input[type='submit'] {
+    @apply
+      bg-secondary
+      text-white
+      hover:bg-accent
+      focus:bg-accent
+      transition-colors
+      duration-200
+      px-[32px] py-[10px]
+      rounded-[5px]
+
+  }
+
+  .form-container input[type='checkbox'] {
+    @apply
+      w-auto
+      cursor-pointer;
+  }
+}

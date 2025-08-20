@@ -23,7 +23,8 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+    <main class="flex flex-col items-center justify-items-center bg-gray-100 w-full min-h-screen">
+      <%= render 'shared/flash_messages' %>
       <%= yield %>
     </main>
   </body>

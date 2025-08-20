@@ -1,0 +1,39 @@
+<div id="<%= dom_id @profile %>" class="bg-white rounded-xl shadow-lg p-6 max-w-sm mx-auto my-8 space-y-4">
+  <div class="flex items-center space-x-4">
+    <div class="flex-shrink-0">
+      <% if @profile.avatar.attached? %>
+        <%= image_tag @profile.avatar, class: "h-20 w-20 rounded-full object-cover border-2 border-gray-200" %>
+      <% else %>
+        <%= image_tag "https://placehold.co/80x80/282828/FFFFFF?text=P", class: "h-20 w-20 rounded-full border-2 border-gray-200" %>
+      <% end %>
+    </div>
+    <div class="flex-grow">
+      <h2 class="text-2xl font-bold text-gray-900"><%= @profile.name %></h2>
+      <h2 class="text-base text-gray-900"><%= @profile.user.obfuscated_email %></h2>
+      <p class="text-sm text-gray-500">
+        <strong class="font-medium"><%= pluralize(@profile.user.messages.count, 'Post') %></strong>
+      </p>
+    </div>
+  </div>
+
+  <% if @profile.bio.present? %>
+    <div class="pt-4 border-t border-gray-200">
+      <h3 class="font-bold text-gray-700 mb-2">Bio</h3>
+      <p class="text-sm text-gray-600 leading-relaxed"><%= @profile.bio %></p>
+    </div>
+  <% end %>
+
+  <% if @profile.avatar.attached? %>
+    <div class="pt-4 border-t border-gray-200">
+      <strong class="block font-medium mb-1 text-gray-700">Avatar:</strong>
+      <%= link_to @profile.avatar.filename, rails_blob_path(@profile.avatar, disposition: "attachment"), class: "text-blue-600 underline hover:no-underline text-sm" %>
+    </div>
+  <% end %>
+
+  <div class="py-6 flex justify-between">
+    <% if current_user == @profile.user %>
+      <%= link_to "Edit profile", edit_profile_path, class: "btn" %>
+    <% end %>
+    <%= link_to "Back", root_path, class: "btn"  %>
+  </div>
+</div>
