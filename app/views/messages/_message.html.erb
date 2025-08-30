@@ -16,7 +16,7 @@
 
     <div class="flex justify-end gap-2">
       <%= link_to "Reply", group_messages_path(message.group), class: 'text-sm text-gray-800  mt-2 px-2 py-1 opacity-0 transition-all duration-300 group-hover:opacity-100' %>
-      <%= link_to "View Profile", profile_path(message.user), class: 'text-sm text-gray-800  mt-2 px-2 py-1 opacity-0 transition-all duration-300 group-hover:opacity-100' %>
+      <%= link_to "View Profile", user_profile_path(message.user), class: 'text-sm text-gray-800  mt-2 px-2 py-1 opacity-0 transition-all duration-300 group-hover:opacity-100' unless message.user == current_user %>
     </div>
     <div class="text-right text-xs mt-1 <%= 'text-gray-500' if message.user == current_user %> <%= 'text-gray-500' unless message.user == current_user %>">
       <%= message.created_at.strftime('%l:%M %P') %>

@@ -1,5 +1,5 @@
-<div class="flex flex-row bg-gray-100 h-screen w-screen px-2">
-  <div class="w-3/12 h-full bg-neutral-200 pl-2">
+<div class="flex flex-row bg-gray-100 h-screen w-screen px-2 overflow-hidden">
+  <div class="w-3/12 h-full bg-neutral-200 pl-2 overflow-y-hidden">
     <!--Sidebar left groups begin-->
       <%= render 'sidebar_left' %>
     <!--Sidebar left group ends-->
@@ -7,13 +7,14 @@
   <div class="flex flex-col relative w-9/12 w-full h-screen bg-white">
     <!--Main content right-->
 
-    <!--Group title -->
+
+  <% if @current_group.present? %>
+      <!--Group title -->
       <%= render partial: 'groups/group', object: @current_group %>
     <!--Group title-->
 
-    <!--Maint content right-->
 
-    <div id="messages" class="w-full bg-white py-6 relative">
+    <div id="messages" class="w-full bg-white px-5 py-6 relative h-[80vh] overflow-x-hidden overflow-y-auto">
         <% if @current_group&.messages&.any? %>
           <%= render @current_group.messages %>
         <% else %>
@@ -24,6 +25,10 @@
     <div class="absolute bottom-0 left-0 w-full">
       <%= render "messages/form", message: @current_group.messages.new %>
     </div>
+  <% end %>
+
+
+    <!--Maint content right-->
   </div>
 </div>
 

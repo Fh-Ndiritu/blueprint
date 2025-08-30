@@ -30,9 +30,10 @@
     </div>
   <% end %>
 
-  <div class="py-6">
+  <div class="py-6 flex justify-between">
     <% if current_user == @profile.user %>
       <%= link_to "Edit profile", edit_profile_path, class: "btn" %>
     <% end %>
+    <%= link_to "Back", root_path, class: "btn"  %>
   </div>
 </div>
