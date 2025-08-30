@@ -1,4 +1,4 @@
-<%= form_with(model: [@group, message], class: "flex items-center space-x-2 py-4 px-2 sm:px-4 bg-white border-t border-gray-200") do |form| %>
+<%= form_with(model: [message.group, message], class: "flex items-center space-x-2 py-4 px-2 sm:px-4 bg-white border-t border-gray-200") do |form| %>
   <%= form.label :content, class: "sr-only" %>
   <%= form.text_area :content,
     rows: 1,

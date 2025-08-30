@@ -8,4 +8,10 @@ class User < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_many :group_users, dependent: :destroy
   has_many :groups, through: :group_users
+
+  def obfuscated_email
+    email
+    email[0..5] = "*" * 5
+    email
+  end
 end

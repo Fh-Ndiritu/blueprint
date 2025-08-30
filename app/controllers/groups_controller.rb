@@ -3,8 +3,7 @@ class GroupsController < ApplicationController
 
   # GET /groups or /groups.json
   def index
-    @your_groups = current_user.groups
-    @other_groups = Group.excluding(@your_groups)
+    @groups = current_user.groups.includes(:group_users)
   end
 
   # GET /groups/1 or /groups/1.json

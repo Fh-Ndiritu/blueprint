@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "dashboard", to: "home#dashboard", as: :dashboard
+
   resources :groups, shallow: true do
     # https://guides.rubyonrails.org/routing.html
     # this defines member routes that rely on group id such as new, create, index

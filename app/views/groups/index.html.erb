@@ -11,28 +11,12 @@
   </div>
 
   <div id="groups" class="min-w-full space-y-5 my-4">
-    <% if @your_groups.any? || @other_groups.any? %>
-      <h2 class="text-lg text-accent ">Your groups</h2>
-     <div>
-       <% @your_groups.each do |group| %>
-        <div class="flex flex-col w-full sm:flex-row justify-between items-center pb-5 sm:pb-0 bg-white">
-          <%#= render partial: 'group_preview', locals: { group: group} %>
-          <%= render partial: 'group_preview', object: group, as: 'group' %>
-          <!--You can also pass a default variable that takes the partials name-->
-          <%#= render partial: 'group_preview', object: group %>
-          <!--Access in partials as group_preview.class.is_a?(Group) == true-->
-        </div>
-      <% end %>
-     </div>
-
- <h2 class="text-lg text-primary ">Other groups: Request to join</h2>
-     <div>
-       <% @other_groups.each do |group| %>
+    <% if @groups.any?%>
+     <% @groups.each do |group| %>
         <div class="flex flex-col w-full sm:flex-row justify-between items-center pb-5 sm:pb-0 bg-white">
           <%= render partial: 'group_preview', object: group, as: 'group' %>
         </div>
       <% end %>
-     </div>
     <% else %>
       <p class="text-center my-10">No groups found.</p>
     <% end %>

@@ -1,4 +1,4 @@
-<div class="flex flex-row items-center justify-between p-2 bg-white border-b border-gray-200 container rounded-lg mt-8">
+<div class="flex flex-row items-center justify-between p-2 bg-white border-b border-gray-200 container">
   <div class="flex items-center space-x-4 mb-4">
     <div class="flex-shrink-0">
       <%= image_tag group.logo, class: "h-16 w-16 rounded-full object-cover" if group.logo.attached? %>
@@ -22,9 +22,4 @@
       <%= button_to "Join Group", group_group_users_path(group), method: :post, data: {turbo: false},  class: "cute-btn accent-btn" %>
     <% end %>
   </div>
-</div>
-
-
-<div>
-  <h3>Notifications will appear here</h3>
 </div>

@@ -3,4 +3,12 @@ class ApplicationController < ActionController::Base
   allow_browser versions: :modern
   before_action :authenticate_user!
 
+
+  def after_sign_in_path_for(resource)
+    if resource.is_a?(User)
+      dashboard_path
+    else
+      stored_location_for(resource) || super
+    end
+  end
 end

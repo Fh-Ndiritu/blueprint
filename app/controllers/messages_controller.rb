@@ -26,7 +26,7 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.save
-        format.html { redirect_to group_messages_path(@message.group), notice: "Message was successfully created." }
+        format.html { redirect_to group_path(@message.group), notice: "Message was successfully created." }
         format.json { render :show, status: :created, location: @message }
       else
         format.html { render :new, status: :unprocessable_entity }

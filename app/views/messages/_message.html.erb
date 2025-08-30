@@ -1,7 +1,7 @@
-<div id="<%= dom_id message %>" class="flex my-4 space-x-2 <%= message.user == current_user ? 'justify-end' : ' justify-start' %> ">
+<div id="<%= dom_id message %>" class="flex my-4 p-2 space-x-2 <%= message.user == current_user ? 'justify-end' : ' justify-start' %> ">
 
   <% if message.user != current_user %>
-    <%= image_tag message.user.profile.avatar.variant(:thumb).processed, class: "h-8 w-8 rounded-full object-cover flex-shrink-0" if message.user.profile.avatar.attached? %>
+    <%= image_tag message.user&.profile&.avatar.variant(:thumb).processed, class: "h-8 w-8 rounded-full object-cover flex-shrink-0" if message.user&.profile&.avatar&.attached? %>
   <% end %>
 
   <div class="group relative max-w-xs sm:max-w-sm px-4 py-2 text-base font-sans rounded-xl w-[80%]
@@ -9,19 +9,22 @@
     <%= 'bg-blue-200 text-gray-800 rounded-tl-none' unless message.user == current_user %>">
 
       <strong class="font-semibold text-xs mb-1 block">
-        <%= message.user.profile.name %>
+        <%= message.user&.profile&.name %>
       </strong>
 
     <p class="leading-snug text-base mb-4"><%= message.content %></p>
 
-    <%= link_to "Reply", group_messages_path(message.group), class: 'text-sm text-gray-800 flex justify-end mt-2 px-2 py-1 opacity-0 transition-all duration-300 group-hover:opacity-100' %>
+    <div class="flex justify-end gap-2">
+      <%= link_to "Reply", group_messages_path(message.group), class: 'text-sm text-gray-800  mt-2 px-2 py-1 opacity-0 transition-all duration-300 group-hover:opacity-100' %>
+      <%= link_to "View Profile", profile_path(message.user), class: 'text-sm text-gray-800  mt-2 px-2 py-1 opacity-0 transition-all duration-300 group-hover:opacity-100' %>
+    </div>
     <div class="text-right text-xs mt-1 <%= 'text-gray-500' if message.user == current_user %> <%= 'text-gray-500' unless message.user == current_user %>">
       <%= message.created_at.strftime('%l:%M %P') %>
     </div>
   </div>
 
   <% if message.user == current_user %>
-    <%= image_tag message.user.profile.avatar.variant(:thumb).processed, class: "h-8 w-8 rounded-full object-cover flex-shrink-0" if message.user.profile.avatar.attached? %>
+    <%= image_tag message.user&.profile&.avatar.variant(:thumb).processed, class: "h-8 w-8 rounded-full object-cover flex-shrink-0" if message.user&.profile&.avatar&.attached? %>
   <% end %>
 
 </div>

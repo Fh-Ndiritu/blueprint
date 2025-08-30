@@ -1,0 +1,32 @@
+<div class="flex flex-row bg-gray-100 h-screen w-screen px-2">
+  <div class="w-3/12 h-full bg-neutral-200 pl-2">
+    <!--Sidebar left groups begin-->
+      <%= render 'sidebar_left' %>
+    <!--Sidebar left group ends-->
+  </div>
+  <div class="flex flex-col relative w-9/12 w-full h-screen bg-white">
+    <!--Main content right-->
+
+    <!--Group title -->
+      <%= render partial: 'groups/group', object: @current_group %>
+    <!--Group title-->
+
+    <!--Maint content right-->
+
+    <div id="messages" class="w-full bg-white py-6 relative">
+        <% if @current_group&.messages&.any? %>
+          <%= render @current_group.messages %>
+        <% else %>
+          <p class="text-center ">No messages found.</p>
+        <% end %>
+    </div>
+
+    <div class="absolute bottom-0 left-0 w-full">
+      <%= render "messages/form", message: @current_group.messages.new %>
+    </div>
+  </div>
+</div>
+
+
+
+
