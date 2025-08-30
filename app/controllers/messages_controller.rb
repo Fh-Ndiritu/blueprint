@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-  before_action :set_message, only: %i[ show edit update destroy ]
+  before_action :set_message, only: %i[ show edit update destroy reply]
   before_action :set_group, only: %i[new index create]
 
   # GET /messages or /messages.json
@@ -13,11 +13,26 @@ class MessagesController < ApplicationController
 
   # GET /messages/new
   def new
-    @message = @group.messages.new
+    # here, we shall listen for the message id and use ancestry
+    if params[:message_id]
+       @parent = Message.find(params[:message_id])
+       @message = @parent.children.new
+    else
+      @parent = nil
+      @message = @group.messages.new
+    end
   end
 
   # GET /messages/1/edit
   def edit
+  end
+
+  def reply
+    @group = @message.group
+    @message = @message.children.new(group: @group)
+    # can we render a partial here instead of a full route??
+    # we can deviate from defaults
+    render 'messages/new'
   end
 
   # POST /messages or /messages.json
@@ -67,7 +82,9 @@ class MessagesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def message_params
       # compact allows us to remove the group_id which is not present for update action
-      params.expect(message: [:content] ).merge({ user_id: current_user.id, group_id: @group&.id }).compact_blank!
+      params.expect(message: [:content, :ancestry]).merge({
+         user_id: current_user.id, group_id: @group&.id
+         }).compact_blank!
     end
 
     def set_group

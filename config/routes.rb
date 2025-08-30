@@ -5,11 +5,18 @@ Rails.application.routes.draw do
     # this defines non-shallow routes that rely on group id such as new, create, create
     # the rest like show, edit, update, destroy are defined without group id since they are persisted in DB already
     resources :messages
+
+    # we can do a third level nesting here so that a message belongs to message and then group
+    # it is frowned upon due to level of nesting
     resources :group_users, except: %i[index show update edit]
-    end
+  end
+
+  # this expects a reply action in messages as reply_message_path
+  resources :messages, only: [] do
+    get 'reply', on: :member
+  end
 
   devise_for :users
-  get "profile/user_id", to: "profile#show", as: :user_profile
 
   # this would be useful if only current user can view their own profile
   # this will not need a user id
@@ -18,9 +25,9 @@ Rails.application.routes.draw do
 
   # make profiles publicly accessibly
   # this will need a user_id field
-  # resources :users do
-  #    resource :profile, only: [ :show ]
-  # end
+  resources :users do
+     resource :profile, only: [ :show ]
+  end
 
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
