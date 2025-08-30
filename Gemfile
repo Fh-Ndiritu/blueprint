@@ -64,4 +64,9 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem 'devise', '~> 4.9', '>= 4.9.4'
+gem "devise", "~> 4.9", ">= 4.9.4"
+gem "ancestry", "~> 4.3"
+
+# https://guides.rubyonrails.org/active_storage_overview.html
+# This is now used with libvips via ruby-vips instead of ImageMagick... 10x faster
+gem "image_processing", "~> 1.14"
