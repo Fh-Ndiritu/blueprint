@@ -4,8 +4,8 @@ Rails.application.routes.draw do
     # this defines member routes that rely on group id such as new, create, index
     # the rest like edit, update, destroy are defined without group id since they are persisted in DB already
     resources :messages
-    resources :group_members
-  end
+    resources :group_users, except: %i[index show update edit]
+    end
 
   devise_for :users
   devise_scope :user do
