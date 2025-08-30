@@ -12,7 +12,7 @@ class GroupUsersController < ApplicationController
 
     respond_to do |format|
       if @group_user.save
-        format.html { redirect_to root_path, notice: "You have joined the group!" }
+        format.html { redirect_to root_path(current_id: @group_user.group_id), notice: "You have joined the group!" }
         format.json { render :show, status: :created, location: @group_user }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -26,7 +26,7 @@ class GroupUsersController < ApplicationController
     @group_user.destroy!
 
     respond_to do |format|
-      format.html { redirect_to root_path, notice: "You have left the group!", status: :see_other }
+      format.html { redirect_to root_path(current_id: @group_user.group_id), notice: "You have left the group!", status: :see_other }
       format.json { head :no_content }
     end
   end

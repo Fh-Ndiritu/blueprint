@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
   before_action :set_message, only: %i[ show edit update destroy ]
-  before_action :set_group, only: %i[new create index]
+  before_action :set_group, only: %i[new index create]
 
   # GET /messages or /messages.json
   def index
@@ -13,7 +13,7 @@ class MessagesController < ApplicationController
 
   # GET /messages/new
   def new
-    @message = Message.new
+    @message = @group.messages.new
   end
 
   # GET /messages/1/edit
@@ -26,7 +26,7 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.save
-        format.html { redirect_to root_path, notice: "Message was successfully created." }
+        format.html { redirect_to root_path(current_id: @message.group), notice: "Message was successfully created." }
         format.json { render :show, status: :created, location: @message }
       else
         format.html { render :new, status: :unprocessable_entity }

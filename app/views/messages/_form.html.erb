@@ -1,18 +1,17 @@
-<%= form_with(model: [message.group, message], class: "flex items-center space-x-2 py-4 px-2 sm:px-4 bg-white border-t border-gray-200") do |form| %>
+<%= form_with(model: [group, message], class: "flex items-center space-x-2 py-4 px-2 sm:px-4 bg-white border-t border-gray-200") do |form| %>
   <%= form.label :content, class: "sr-only" %>
   <%= form.text_area :content,
-    rows: 1,
+    rows: 3,
     placeholder: "Type a message...",
     class: "flex-grow resize-none rounded-2xl border-none p-3 text-sm focus:outline-none focus:ring-0 bg-gray-100"
   %>
 
-<%= button_to type: "submit" do %>
-  <div class="h-10 w-10 flex items-center justify-center rounded-full bg-accent hover:bg-blue-500 text-white cursor-pointer transition-all duration-200">
-    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256">
-      <path d="M227.32,28.68a16,16,0,0,0-15.66-4.08l-.15,0L19.57,82.84a16,16,0,0,0-2.49,29.8L102,154l41.3,84.87A15.86,15.86,0,0,0,157.74,248q.69,0,1.38-.06a15.88,15.88,0,0,0,14-11.51l58.2-191.94c0-.05,0-.1,0-.15A16,16,0,0,0,227.32,28.68ZM157.83,231.85l-.05.14,0-.07-40.06-82.3,48-48a8,8,0,0,0-11.31-11.31l-48,48L24.08,98.25l-.07,0,.14,0L216,40Z"></path>
-    </svg>
-  </div>
-
-<% end %>
+  <%= button_to type: "submit" do %>
+    <div class="h-10 w-10 flex items-center justify-center rounded-full bg-accent hover:bg-blue-500 text-white cursor-pointer transition-all duration-200">
+      <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256">
+        <path d="M227.32,28.68a16,16,0,0,0-15.66-4.08l-.15,0L19.57,82.84a16,16,0,0,0-2.49,29.8L102,154l41.3,84.87A15.86,15.86,0,0,0,157.74,248q.69,0,1.38-.06a15.88,15.88,0,0,0,14-11.51l58.2-191.94c0-.05,0-.1,0-.15A16,16,0,0,0,227.32,28.68ZM157.83,231.85l-.05.14,0-.07-40.06-82.3,48-48a8,8,0,0,0-11.31-11.31l-48,48L24.08,98.25l-.07,0,.14,0L216,40Z"></path>
+      </svg>
+    </div>
+  <% end %>
 
 <% end %>

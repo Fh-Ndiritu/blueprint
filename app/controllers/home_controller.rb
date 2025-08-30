@@ -22,6 +22,8 @@ class HomeController < ApplicationController
 
         #  flash.alert = "This is shown on the next redirect too"
       end
+    elsif @your_groups.any?
+      @current_group = @your_groups.first
     end
   end
 end

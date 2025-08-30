@@ -1,15 +1,15 @@
 Rails.application.routes.draw do
-  get "dashboard", to: "home#dashboard", as: :dashboard
 
   resources :groups, shallow: true do
     # https://guides.rubyonrails.org/routing.html
-    # this defines member routes that rely on group id such as new, create, index
-    # the rest like edit, update, destroy are defined without group id since they are persisted in DB already
+    # this defines non-shallow routes that rely on group id such as new, create, create
+    # the rest like show, edit, update, destroy are defined without group id since they are persisted in DB already
     resources :messages
     resources :group_users, except: %i[index show update edit]
     end
 
   devise_for :users
+  get "profile/user_id", to: "profile#show", as: :user_profile
 
   # this would be useful if only current user can view their own profile
   # this will not need a user id
@@ -18,9 +18,9 @@ Rails.application.routes.draw do
 
   # make profiles publicly accessibly
   # this will need a user_id field
-  resources :users do
-     resource :profile, only: [ :show ]
-  end
+  # resources :users do
+  #    resource :profile, only: [ :show ]
+  # end
 
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -34,5 +34,6 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
+  get "/welcome", to: 'home#welcome'
   root "home#dashboard"
 end
