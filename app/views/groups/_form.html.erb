@@ -1,0 +1,32 @@
+<%= form_with(model: group, class: "contents") do |form| %>
+  <% if group.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
+      <h2><%= pluralize(group.errors.count, "error") %> prohibited this group from being saved:</h2>
+
+      <ul class="list-disc ml-6">
+        <% group.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="my-5">
+    <%= form.label :logo %>
+    <%= form.file_field :logo, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": group.errors[:logo].none?, "border-red-400 focus:outline-red-600": group.errors[:logo].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": group.errors[:title].none?, "border-red-400 focus:outline-red-600": group.errors[:title].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :description %>
+    <%= form.textarea :description, rows: 4, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": group.errors[:description].none?, "border-red-400 focus:outline-red-600": group.errors[:description].any?}] %>
+  </div>
+
+  <div class="inline">
+    <%= form.submit class: "cute-btn secondary-btn" %>
+  </div>
+<% end %>

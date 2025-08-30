@@ -1,0 +1,28 @@
+<% content_for :title, "Groups" %>
+
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl">Groups</h1>
+    <%= link_to "New group", new_group_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
+  </div>
+
+  <div id="groups" class="min-w-full divide-y divide-gray-200 space-y-5 my-4">
+    <% if @groups.any? %>
+      <% @groups.each do |group| %>
+        <div class="flex flex-col w-full sm:flex-row justify-between items-center pb-5 sm:pb-0 bg-amber-50">
+          <%#= render partial: 'group_preview', locals: { group: group} %>
+          <%= render partial: 'group_preview', object: group, as: 'group' %>
+          <!--You can also pass a default variable that takes the partials name-->
+          <%#= render partial: 'group_preview', object: group %>
+          <!--Access in partials as group_preview.class.is_a?(Group) == true-->
+        </div>
+      <% end %>
+    <% else %>
+      <p class="text-center my-10">No groups found.</p>
+    <% end %>
+  </div>
+</div>
