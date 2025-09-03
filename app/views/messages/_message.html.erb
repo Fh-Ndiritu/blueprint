@@ -1,31 +1,24 @@
-<div id="<%= dom_id message %>" class="flex my-4 p-2 space-x-2 <%= message.user == current_user ? 'justify-end' : ' justify-start' %> ">
-
+<div id="<%= dom_id message %>" class="flex my-4 p-2 space-x-2 message <%= message.user == current_user ? 'justify-end' : ' justify-start' %> ">
   <% if message.user != current_user %>
     <%= image_tag message.user&.profile&.avatar.variant(:thumb).processed, class: "h-8 w-8 rounded-full object-cover flex-shrink-0" if message.user&.profile&.avatar&.attached? %>
   <% end %>
-
   <div class="group relative max-w-xs sm:max-w-sm px-4 py-2 text-base font-sans rounded-xl w-[80%]
     <%= 'bg-green-200 text-gray-800 rounded-tl-none' if message.user == current_user %>
     <%= 'bg-blue-200 text-gray-800 rounded-tl-none' unless message.user == current_user %>">
-
-      <strong class="font-semibold text-xs mb-1 block">
-        <%= message.user&.profile&.name %>
-      </strong>
-
-      <% if message.has_parent? %>
-       <%= link_to "#message_#{message.parent.id}" do  %>
-         <div class="opacity-80 bg-gray-100 border border-gray-200 p-2 rounded hover:opacity-90 my-1">
+    <strong class="font-semibold text-xs mb-1 block">
+      <%= message.user&.profile&.name %>
+    </strong>
+    <% if message.has_parent? %>
+      <%= link_to "#message_#{message.parent.id}" do  %>
+        <div class="opacity-80 bg-gray-100 border border-gray-200 p-2 rounded hover:opacity-90 my-1">
           <strong class="font-normal text-xs line-clamp-1 mb-1">
             <%= message.parent.user&.profile&.name %>
           </strong>
           <p class="leading-snug text-xs mb-1 line-clamp-1"><%= message.parent.content %></p>
         </div>
-        <% end %>
-
       <% end %>
-
+    <% end %>
     <p class="leading-snug text-base mb-4"><%= message.content %></p>
-
     <div class="flex justify-end gap-2">
       <%= link_to "Reply", reply_message_path(message), class: 'text-sm text-gray-800  mt-2 px-2 py-1 opacity-0 transition-all duration-300 group-hover:opacity-100' %>
       <%= link_to "View Profile", user_profile_path(message.user), class: 'text-sm text-gray-800  mt-2 px-2 py-1 opacity-0 transition-all duration-300 group-hover:opacity-100' unless message.user == current_user %>
@@ -34,9 +27,7 @@
       <%= message.created_at.strftime('%l:%M %P') %>
     </div>
   </div>
-
   <% if message.user == current_user %>
     <%= image_tag message.user&.profile&.avatar.variant(:thumb).processed, class: "h-8 w-8 rounded-full object-cover flex-shrink-0" if message.user&.profile&.avatar&.attached? %>
   <% end %>
-
 </div>
