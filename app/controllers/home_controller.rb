@@ -1,12 +1,13 @@
 class HomeController < ApplicationController
+  include Groupable
   skip_before_action :authenticate_user!, only: :welcome
+  before_action :fetch_groups, only: :dashboard
 
   def welcome
   end
 
   def dashboard
-    @your_groups = current_user.groups
-    @other_groups = Group.excluding(@your_groups)
+
     set_current_group
   end
 

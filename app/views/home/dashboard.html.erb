@@ -1,9 +1,5 @@
 <div class="flex flex-row bg-gray-100 h-screen w-screen px-2 overflow-hidden" data-controller="dashboard">
-  <div class="w-3/12 h-full bg-neutral-200 pl-2 overflow-y-hidden">
-    <!--Sidebar left groups begin-->
-    <%= render 'sidebar_left' %>
-    <!--Sidebar left group ends-->
-  </div>
+  <%= render partial: 'sidebar_left', locals: { your_groups: @your_groups, other_groups: @other_groups} %>
   <%= render partial: 'main_content', locals: {current_group: @current_group} %>
 </div>
 <%# console %>
