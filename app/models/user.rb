@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_many :group_users, dependent: :destroy
   has_many :groups, through: :group_users
 
+  delegate :name, to: :profile
+
   def obfuscated_email
     email
     email[0..5] = "*" * 5

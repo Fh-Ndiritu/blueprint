@@ -1,11 +1,14 @@
 <!--# at this point, the message will contain data about it's parent which we need to post/edit to-->
 <%= form_with(model: [group, message], class: "flex items-center space-x-2 py-4 px-2 sm:px-4 bg-white border-t border-gray-200") do |form| %>
   <%= form.label :content, class: "sr-only" %>
-  <%= form.text_area :content,
+  <div class="flex relative w-full">
+    <%= form.text_area :content,
     rows: 3,
-    placeholder: "Type a message...",
+    placeholder: message.has_parent? ? "Reply to: #{message.parent.user.name}":  "Type a message...",
     class: "flex-grow resize-none rounded-2xl border-none p-3 text-sm focus:outline-none focus:ring-0 bg-gray-100"
   %>
+    <%= link_to "X", new_group_message_path(group), class: " bg-accent px-2 rounded-lg absolute cursor-pointer left-1 -mt-2" if message.has_parent? %>
+  </div>
   <%= form.text_field :ancestry, class: "hidden" %>
   <%= button_to type: "submit" do %>
     <div class="h-10 w-10 flex items-center justify-center rounded-full bg-accent hover:bg-blue-500 text-white cursor-pointer transition-all duration-200">

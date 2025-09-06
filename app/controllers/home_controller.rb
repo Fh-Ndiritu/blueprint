@@ -13,17 +13,18 @@ class HomeController < ApplicationController
   private
 
   def set_current_group
-    if params[:current_id].present?
-      group = Group.find(params[:current_id])
-      if @your_groups.exists?(group.id)
-        @current_group = group
-      else
-        flash.now.alert = "Request to join first."
+    @current_group = Group.find_by(id: params[:current_id]).presence || @your_groups.first || @other_groups.first
+    # if params[:current_id].present?
 
-        #  flash.alert = "This is shown on the next redirect too"
-      end
-    elsif @your_groups.any?
-      @current_group = @your_groups.first
-    end
+    #   if @your_groups.exists?(group.id)
+    #     @current_group = group
+    #   else
+    #     flash.now.alert = "Request to join first."
+
+    #     #  flash.alert = "This is shown on the next redirect too"
+    #   end
+    # elsif @your_groups.any?
+    #   @current_group = @your_groups.first
+    # end
   end
 end
