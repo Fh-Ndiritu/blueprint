@@ -8,13 +8,13 @@
     <!--Data turbo confirm allows use to run underlying JS confirms-->
     <%= link_to "Log out", destroy_user_session_path, class: "btn", data: { turbo_method: :delete, turbo_frame: '_top', turbo_confirm: "You want to leave?" } if user_signed_in? %>
   </div>
+  <%= link_to "Create a group", new_group_path  %>
   <!--@your_groups-->
   <!--other_groups-->
   <% if your_groups.any? || other_groups.any? %>
     <h2 class="text-base my-3 text-accent ">Your groups</h2>
     <% your_groups.each do |group| %>
       <!--# here we shall broadcast events to this channel-->
-      <%= turbo_stream_from dom_id(group) %>
       <div class="flex flex-col w-full sm:flex-row justify-between items-center pb-5 sm:pb-0 bg-white my-4">
         <%#= render partial: 'group_preview', locals: { group: group} %>
         <%= render partial: 'groups/group_preview', object: group, as: 'group' %>

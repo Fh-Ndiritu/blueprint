@@ -1,6 +1,6 @@
-<div class="w-full pl-1 bg-green-200" <%= dom_id(group) %>>
+<div class="w-full pl-1 bg-green-200" id="<%= dom_id group %>">
   <%= link_to root_path(current_id: group.id), data: {turbo_frame: "current_group"} do %>
-    <div id="<%= dom_id group %>" class="w-full sm:w-auto flex items-center space-x-4 py-3 px-2 hover:bg-blue-50 bg-pink-100 group-yours-bg-accent">
+    <div  class="w-full sm:w-auto flex items-center space-x-4 py-3 px-2 hover:bg-blue-50 bg-pink-100 group-yours-bg-accent">
       <div class="relative flex-shrink-0">
         <%= image_tag group.logo, class: "h-16 w-16 rounded-full object-cover" if group.logo.attached? %>
         <% if group.member(current_user).present? %>
