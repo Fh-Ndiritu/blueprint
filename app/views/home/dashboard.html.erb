@@ -1,3 +1,4 @@
+<%= turbo_stream_from "groups" %>
 <div class="flex flex-row bg-gray-100 h-screen w-screen px-2 overflow-hidden" data-controller="dashboard">
   <%= render partial: 'sidebar_left', locals: { your_groups: @your_groups, other_groups: @other_groups} %>
   <%= render partial: 'main_content', locals: {current_group: @current_group} %>
