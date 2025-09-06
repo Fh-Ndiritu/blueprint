@@ -1,5 +1,4 @@
 <%# app/views/shared/_flash_messages.html.erb %>
-
 <% flash.each do |type, msg| %>
   <% if type == 'notice' %>
     <% alert_class = 'bg-emerald-50 text-emerald-700 border-emerald-300' %>
@@ -11,7 +10,6 @@
     <% alert_class = 'bg-blue-50 text-blue-700 border-blue-300' %>
     <% icon_content = '💡' %>
   <% end %>
-
   <div class="relative flex items-center p-4 my-2 text-sm font-semibold rounded-lg shadow-sm <%= alert_class %>" role="alert">
     <span class="mr-3 text-lg"><%= icon_content %></span>
     <p class="flex-1"><%= msg %></p>

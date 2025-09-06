@@ -4,7 +4,11 @@ class MessagesController < ApplicationController
 
   # GET /messages or /messages.json
   def index
-    @messages = Message.all
+    @messages = if @group
+     @group.messages
+    else
+      Message.all
+    end
   end
 
   # GET /messages/1 or /messages/1.json

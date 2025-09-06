@@ -1,29 +1,24 @@
-<div class="w-full pl-1 bg-green-200">
-  <%= link_to group_path(group) do %>
-  <div id="<%= dom_id group %>" class="w-full sm:w-auto flex items-center space-x-4 py-3 px-2 hover:bg-blue-50 bg-pink-100 group-yours-bg-accent">
-    <div class="relative flex-shrink-0">
-      <%= image_tag group.logo, class: "h-16 w-16 rounded-full object-cover" if group.logo.attached? %>
-
-      <%if group.member(current_user).present? %>
-        <div data-controller="notification" data-notification-count-value="<%= 1 %>" class="absolute top-0 right-0 -mt-1 -mr-1">
-          <div data-notification-target="counter" class="w-5 h-5 flex items-center justify-center rounded-full text-xs font-bold text-white bg-green-500 ">
-            1
+<div class="w-full pl-1 bg-green-200" <%= dom_id(group) %>>
+  <%= link_to root_path(current_id: group.id), data: {turbo_frame: "current_group"} do %>
+    <div id="<%= dom_id group %>" class="w-full sm:w-auto flex items-center space-x-4 py-3 px-2 hover:bg-blue-50 bg-pink-100 group-yours-bg-accent">
+      <div class="relative flex-shrink-0">
+        <%= image_tag group.logo, class: "h-16 w-16 rounded-full object-cover" if group.logo.attached? %>
+        <% if group.member(current_user).present? %>
+          <div data-controller="notification" data-notification-count-value="<%= 1 %>" class="absolute top-0 right-0 -mt-1 -mr-1">
+            <div data-notification-target="counter" class="w-5 h-5 flex items-center justify-center rounded-full text-xs font-bold text-white bg-green-500 ">
+              <%= group.messages.count %>
+            </div>
           </div>
-        </div>
-      <% end %>
-
+        <% end %>
+      </div>
+      <div class="min-w-0">
+        <h3 class="text-lg font-bold truncate">
+          <%= group.title %>
+        </h3>
+        <p class="text-gray-500 text-sm truncate">
+          <%= group.description %>
+        </p>
+      </div>
     </div>
-
-    <div class="min-w-0">
-      <h3 class="text-lg font-bold truncate">
-        <%= group.title %>
-      </h3>
-
-      <p class="text-gray-500 text-sm truncate">
-        <%= group.description %>
-      </p>
-    </div>
-  </div>
-<% end %>
-
+  <% end %>
 </div>

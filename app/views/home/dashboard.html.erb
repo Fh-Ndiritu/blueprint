@@ -1,37 +1,18 @@
-<div class="flex flex-row bg-gray-100 h-screen w-screen px-2 overflow-hidden">
-  <div class="w-3/12 h-full bg-neutral-200 pl-2 overflow-y-hidden">
-    <!--Sidebar left groups begin-->
-      <%= render 'sidebar_left' %>
-    <!--Sidebar left group ends-->
-  </div>
-  <div class="flex flex-col relative w-9/12 w-full h-screen bg-white">
-    <!--Main content right-->
-
-
-  <% if @current_group.present? %>
-      <!--Group title -->
-      <%= render partial: 'groups/group', object: @current_group %>
-    <!--Group title-->
-
-
-    <div id="messages" class="w-full bg-white px-5 py-6 relative h-[80vh] overflow-x-hidden overflow-y-auto">
-        <% if @current_group&.messages&.any? %>
-          <%= render @current_group.messages %>
-        <% else %>
-          <p class="text-center ">No messages found.</p>
-        <% end %>
-    </div>
-
-    <div class="absolute bottom-0 left-0 w-full">
-      <%= render "messages/form", message: @current_group.messages.new, group: @current_group %>
-    </div>
-  <% end %>
-
-
-    <!--Maint content right-->
-  </div>
+<div class="flex flex-row bg-gray-100 h-screen w-screen px-2 overflow-hidden" data-controller="dashboard">
+  <%= render partial: 'sidebar_left', locals: { your_groups: @your_groups, other_groups: @other_groups} %>
+  <%= render partial: 'main_content', locals: {current_group: @current_group} %>
 </div>
-
-
-
-
+<%# console %>
+<!--Bare turbo stream example-->
+<!--  <turbo-stream action="replace" target="current_group">
+    <template>
+      <div class="flex w-full h-screen bg-accent text-center justify-center text-white text-4xl">We are gone!</div>
+    </template>
+  </turbo-stream>-->
+<!--<turbo-stream action="refresh" target="current_group"></turbo-stream>-->
+<!--We can also target multiple elements-->
+<!--<turbo-stream action="update" targets=".message">
+  <template>
+    Hello
+  </template>
+</turbo-stream>-->
