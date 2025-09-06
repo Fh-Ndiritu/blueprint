@@ -4,8 +4,9 @@ class MessagesController < ApplicationController
 
   # GET /messages or /messages.json
   def index
+    # here, we can show only messages that are not profane
     @messages = if @group
-     @group.messages
+     @group.messages.validated
     else
       Message.all
     end
@@ -47,6 +48,9 @@ class MessagesController < ApplicationController
       if @message.save
         format.html { redirect_to root_path(current_id: @message.group), notice: "Message was successfully created." }
         format.json { render :show, status: :created, location: @message }
+
+        # we shall stream our updates from the model so no need for a response
+        format.turbo_stream{ head :no_content}
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @message.errors, status: :unprocessable_entity }
