@@ -3,8 +3,8 @@ class FilterSchema < RubyLLM::Schema
 end
 
 class ProfanityFilter
-  def initialize(id)
-    @message = Message.find(id)
+  def initialize(message)
+    @message = message
   end
 
   def self.perform(*args)
@@ -15,7 +15,7 @@ class ProfanityFilter
     # here we shall filter out jokes
     response = fetch_llm_response
     # profane = response.content.with_indifferent_access[:relevant]
-    profane = response.content['relevant']
+    profane = response.content["relevant"]
     @message.update! profane: !profane
   rescue StandardError => e
     raise "ProfanityFilter failed: #{e.message}"
