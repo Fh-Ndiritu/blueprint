@@ -21,11 +21,10 @@ class Message < ApplicationRecord
   private
 
 
+  # https://guides.rubyonrails.org/action_cable_overview.html#rebroadcasting-a-message
   # now that changing or creating a message will trigger an event here
   # we can stream updates via action cable
-
   # this will broadcast all events we send
-
   def broadcast_update
     # we can update the specific group using the dom_id
     # This is the same syntax used in controllers but now we need to create our own channels
@@ -40,13 +39,15 @@ class Message < ApplicationRecord
     broadcast_append_later_to("groups", target: "messages", partial: "messages/message", locals: { message: self, current_user: user })
   end
 
+
   def filter_profanity
-    # this takes a while and is best run as a job
     broadcast_update
-    ProfanityFilter.perform(id)
-    if reload.profane?
-      broadcast_remove_to("groups", target: "message_#{id}")
-      broadcast_replace_later_to("groups",  target: "group_#{group_id}", partial: "groups/group_preview", locals: { group:  group, current_user: user })
-    end
+    # ProfanityFilter.perform_later(id)
+
+    # This job is fast, we need to delay it a bit
+    ProfanityFilterJob.set(wait: 1.seconds).perform_later(id)
+
+    #this will block execution
+    # ProfanityFilterJob.perform_now(id)
   end
 end
