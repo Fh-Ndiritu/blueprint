@@ -7,7 +7,7 @@
   <% if current_group.present? %>
     <!--Group title -->
     <!--We can add a partial to groups/show page that will give use this content-->
-    <turbo-frame id="group" src="<%= group_path(current_group) %>" loading='eager'>
+    <turbo-frame id="group" src="<%= group_path(current_group) %>" loading='eager' refresh="morph">
     </turbo-frame>
     <!--Group title-->
     <!--Then we control access to member features-->
@@ -16,7 +16,7 @@
         <% if current_group&.messages&.any? %>
           <!--# since maessages will take a while to load, we can use a lazy loaded frame here-->
           <!--We can do that by fetching from the index page of messages with a group id set-->
-          <turbo-frame id="messages" src="<%=  group_messages_path(current_group) %>" loading="lazy">
+          <turbo-frame id="messages" src="<%=  group_messages_path(current_group) %>" loading="lazy" refresh="morph">
           </turbo-frame>
         <% else %>
           <p class="text-center ">No messages found.</p>
