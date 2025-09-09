@@ -19,11 +19,11 @@ class ProfanityFilterJob < ApplicationJob
   private
 
   def remove_from_messages_list
-    @message.broadcast_remove_to("groups", target: "message_#{@message.id}")
+    Turbo::StreamsChannel.broadcast_remove_to("groups", target: "message_#{@message.id}")
   end
 
   def remove_from_message_count
-    @message.broadcast_replace_later_to("groups",
+    Turbo::StreamsChannel.broadcast_replace_later_to("groups",
     target: "group_#{@message.group_id}",
     partial: "groups/group_preview",
     locals: { group:  @message.group, current_user: @message.user }

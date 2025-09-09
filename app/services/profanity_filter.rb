@@ -32,7 +32,7 @@ class ProfanityFilter
      topics such as #{@message.group.description}.
     Analyze the content for content related to #{@message.group.title} and return true if relevant.
     <user_content>
-    #{@message.content}
+    #{@message.content} #{@message.parent.content if @message.has_parent?}
     </user_content>
     ")
   rescue StandardError => e

@@ -19,13 +19,7 @@ class MessagesController < ApplicationController
   # GET /messages/new
   def new
     # here, we shall listen for the message id and use ancestry
-    if params[:message_id]
-       @parent = Message.find(params[:message_id])
-       @message = @parent.children.new
-    else
-      @parent = nil
-      @message = @group.messages.new
-    end
+    @message, @parent = new_message
   end
 
   # GET /messages/1/edit
@@ -50,7 +44,10 @@ class MessagesController < ApplicationController
         format.json { render :show, status: :created, location: @message }
 
         # we shall stream our updates from the model so no need for a response
-        format.turbo_stream{ head :no_content}
+        format.turbo_stream do
+          message, parent  = new_message
+          render turbo_stream: turbo_stream.update("new_message", partial: "messages/form", locals: { message:, group: @group, parent: })
+        end
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @message.errors, status: :unprocessable_entity }
@@ -97,5 +94,14 @@ class MessagesController < ApplicationController
 
     def set_group
       @group = Group.find(params[:group_id])
+    end
+
+    def new_message
+      if params[:message_id]
+       parent = Message.find(params[:message_id])
+       [ @parent.children.new, parent ]
+      else
+       [ @group.messages.new, nil ]
+      end
     end
 end
