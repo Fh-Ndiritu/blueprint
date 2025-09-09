@@ -16,10 +16,15 @@
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <!--https://domchristie.co.uk/posts/turbo-refreshes-frames-streams/-->
     <!--<meta name="turbo-prefetch" content="false">-->
+    <!--Morphing will keep the UI state and also scroll position, useful for form fields etc-->
+    <meta name="turbo-refresh-method" content="morph">
+    <meta name="turbo-refresh-scroll" content="preserve">
+    <%= turbo_stream_from "groups" %>
   </head>
   <body>
-    <main class="flex flex-col items-center justify-items-center bg-gray-100 w-full min-h-screen">
+    <main id="page" class="flex flex-col items-center justify-items-center bg-gray-100 w-full min-h-screen">
       <%= render 'shared/flash_messages' %>
       <%= yield %>
       <%= render 'shared/loader' %>

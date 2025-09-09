@@ -10,7 +10,9 @@ class Message < ApplicationRecord
   # after_save_commit :broadcast_update
 
   # run filter only on content change to prevent infinite loops
+  after_create_commit :insert_message
   after_save_commit :filter_profanity, if: :saved_change_to_content?
+  # after_save_commit :remove_message, if: :saved_change_to_profane?
 
 
   # we add a validated scope here
@@ -25,7 +27,7 @@ class Message < ApplicationRecord
   # now that changing or creating a message will trigger an event here
   # we can stream updates via action cable
   # this will broadcast all events we send
-  def broadcast_update
+  def insert_message
     # we can update the specific group using the dom_id
     # This is the same syntax used in controllers but now we need to create our own channels
     # we can send to group_id,
@@ -41,7 +43,6 @@ class Message < ApplicationRecord
 
 
   def filter_profanity
-    broadcast_update
     # ProfanityFilter.perform_later(id)
 
     # This job is fast, we need to delay it a bit
@@ -49,5 +50,12 @@ class Message < ApplicationRecord
 
     #this will block execution
     # ProfanityFilterJob.perform_now(id)
+  end
+
+  def remove_message
+    # we need to reduce message count
+    # and remove message from display
+    broadcast_replace_later_to("groups",  target: "group_#{group_id}", partial: "groups/group_preview", locals: { group:  group, current_user: user })
+    broadcast_remove_to("groups", target: "messages_#{id}")
   end
 end

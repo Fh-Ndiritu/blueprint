@@ -3,7 +3,7 @@
   <h1 class="font-bold text-4xl mb-8">New message for `<%= @group.title %></h1>
   <div class="my-6">
     <%= turbo_frame_tag "new_message" do %>
-      <%= render "form", message: @message, group: @group, parent: @parent %>
+      <%= render "form", message: @message, group: @group %>
     <% end %>
   </div>
   <%= link_to "Back to messages", group_messages_path(@group), class: "btn primary-btn" %>

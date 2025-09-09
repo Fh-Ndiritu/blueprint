@@ -1,5 +1,5 @@
 <!--# now do we need this to be a current_group frame? We could easily replace it with just an id an use it for turbo streams-->
-<turbo-frame id="current_group" class="flex flex-col relative w-9/12 w-full h-screen bg-white">
+<div id="current_group" class="flex flex-col relative w-9/12 w-full h-screen bg-white">
   <!--Main content right-->
   <!--    # Here, we shall decompose our page into turbo frame components
     This will allow faster loading with parallel requests
@@ -7,7 +7,7 @@
   <% if current_group.present? %>
     <!--Group title -->
     <!--We can add a partial to groups/show page that will give use this content-->
-    <turbo-frame id="group" src="<%= group_path(current_group) %>" loading='eager'>
+    <turbo-frame id="group" src="<%= group_path(current_group) %>" loading='eager' refresh="morph">
     </turbo-frame>
     <!--Group title-->
     <!--Then we control access to member features-->
@@ -16,7 +16,7 @@
         <% if current_group&.messages&.any? %>
           <!--# since maessages will take a while to load, we can use a lazy loaded frame here-->
           <!--We can do that by fetching from the index page of messages with a group id set-->
-          <turbo-frame id="messages" src="<%=  group_messages_path(current_group) %>" loading="lazy">
+          <turbo-frame id="messages" src="<%=  group_messages_path(current_group) %>" loading="lazy" refresh="morph">
           </turbo-frame>
         <% else %>
           <p class="text-center ">No messages found.</p>
@@ -33,4 +33,4 @@
     <% end %>
   <% end %>
   <!--Main content right-->
-</turbo-frame>
+</div>
