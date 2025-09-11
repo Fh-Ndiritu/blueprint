@@ -9,17 +9,22 @@ export default class extends Controller {
 
   static targets = ['item']
 
+  static values = { index: Number }
+
   // defining a target provides 3 methods, itemTarget, itemTargets, hasItemTarget
 
   // runs only once when controller is instantiated
   initialize() {
-    this.index = 0
+    // this.indexValue = 0
+    // now we don't need to set the default value because we get it from stimulus on load
     this.showItem()
+
   }
 
   // # this runs everytime the controller instance is connected to DOM
   connect() {
-
+    console.log(this.indexValue)
+    console.log(typeof this.indexValue)
   }
 
   // every time the controller instance is removed from dom
@@ -27,21 +32,24 @@ export default class extends Controller {
 
   }
 
+
+  // # we update methods to use indexValue not index
+
   prev() {
-    if (this.index > 0) {
-       this.index--
+    if (this.indexValue > 0) {
+       this.indexValue--
     } else {
-      this.index = this.itemTargets.length - 1
+      this.indexValue = this.itemTargets.length - 1
     }
 
     this.showItem()
   }
 
   next() {
-    if (this.index < this.itemTargets.length - 1) {
-      this.index++
+    if (this.indexValue < (this.itemTargets.length - 1)) {
+      this.indexValue++
     } else{
-      this.index = 0
+      this.indexValue = 0
     }
 
     this.showItem()
@@ -49,10 +57,9 @@ export default class extends Controller {
 
 
   showItem() {
-    console.log("Hey")
-    console.log(this.index)
+    console.log("The index is " + this.indexValue)
     this.itemTargets.forEach((item, idx) => {
-      item.hidden = (idx !== this.index)
+      item.hidden = (idx !== this.indexValue)
     })
   }
 }
