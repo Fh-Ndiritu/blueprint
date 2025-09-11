@@ -1,14 +1,22 @@
-<%= turbo_frame_tag "main_content" do %>
-  <div class="flex flex-col items-center">
+<%= turbo_frame_tag "main_content", class: "flex w-full" do %>
+  <div class="flex flex-col items-center w-full">
     <h1 class="font-bold text-4xl mb-4">Our top users today</h1>
-    <!-- Wrapper for the slider and navigation buttons -->
-    <div class="relative w-full max-w-5xl">
-      <!-- The main slider container with added scroll-snap properties -->
-      <div id="slider-container" class="flex flex-row gap-4 w-full overflow-x-scroll snap-x snap-mandatory rounded-xl p-3 scrollbar-hide">
+    <div class="relative w-full max-w-3xl"
+           data-controller="slider"
+           >
+      <!--# we can set the index we want to be the first here-->
+      <!--set data controller to connect to JS controller class-->
+      <!--set the slider targets-->
+      <div id="slider-container"
+       class="flex flex-row gap-4 w-full overflow-x-hidden snap-x snap-mandatory rounded-xl p-3 scrollbar-hide"
+       data-slider-target="sliderWrapper"
+       >
         <% @top_users.each do |user, messages| %>
           <!-- Each slider item is now full width and a flex-shrink-0 -->
-          <div class="block slider-item snap-center bg-accent text-white rounded-xl shadow-2xl p-8 my-10 w-full flex-shrink-0">
-            <!-- Styled content for the user and message details -->
+          <div
+          class="block slider-item snap-center bg-accent text-white rounded-xl shadow-2xl p-8 my-10 w-full "
+          data-slider-target="item"
+          >
             <div>
               <div class="flex-shrink-0">
                 <% if user.profile.avatar.attached? %>
@@ -31,22 +39,20 @@
         <% end %>
       </div>
       <!-- Navigation Buttons -->
-      <button id="slider-left-btn" class="absolute left-0 top-1/2 -translate-y-1/2 transform bg-white p-2 rounded-full shadow-lg z-10 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent -ml-3">
+      <!--We add slider actions -->
+      <!--# buttons and links will inherit default actions -->
+      <!--https://stimulus.hotwired.dev/handbook/building-something-real-->
+      <button id="slider-left-btn"
+      data-action="slider#prev"
+        class="absolute left-0 top-1/2 -translate-y-1/2 transform bg-white p-2 rounded-full shadow-lg z-10 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent -ml-3">
         <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
       </button>
-      <button id="slider-right-btn" class="absolute right-0 top-1/2 -translate-y-1/2 transform bg-white p-2 rounded-full shadow-lg z-10 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent -mr-3">
+      <button
+      id="slider-right-btn"
+      data-action="slider#next"
+      class="absolute right-0 top-1/2 -translate-y-1/2 transform bg-white p-2 rounded-full shadow-lg z-10 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent -mr-3">
         <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
       </button>
     </div>
   </div>
 <% end %>
-<style>
-  /* Hide scrollbar for a cleaner look */
-  .scrollbar-hide::-webkit-scrollbar {
-      display: none;
-  }
-  .scrollbar-hide {
-      -ms-overflow-style: none;  /* IE and Edge */
-      scrollbar-width: none;  /* Firefox */
-  }
-</style>
