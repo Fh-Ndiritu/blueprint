@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "scoreboards", to: "scoreboards#index", as: :scoreboards
 
   resources :groups, shallow: true do
     # https://guides.rubyonrails.org/routing.html

@@ -8,7 +8,10 @@
     <!--Data turbo confirm allows use to run underlying JS confirms-->
     <%= link_to "Log out", destroy_user_session_path, class: "btn", data: { turbo_method: :delete, turbo_frame: '_top', turbo_confirm: "You want to leave?" } if user_signed_in? %>
   </div>
-  <%= link_to "Create a group", new_group_path  %>
+  <div class="flex w-full justify-between px-4">
+    <%= link_to "Create a group", new_group_path, class: " cute-btn accent-btn"  %>
+    <%= link_to "Top Users", scoreboards_path, data: {turbo_frame: "current_group"}, class: "cute-btn accent-btn" %>
+  </div>
   <!--@your_groups-->
   <!--other_groups-->
   <% if your_groups.any? || other_groups.any? %>
