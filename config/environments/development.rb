@@ -74,4 +74,6 @@ Rails.application.configure do
   # this is the same setting for prod, we can then add a dev db
   config.active_job.queue_adapter = :solid_queue
   config.solid_queue.connects_to = { database: { writing: :queue } }
+
+  config.hosts << /.*\.ngrok-free\.app$/
 end
