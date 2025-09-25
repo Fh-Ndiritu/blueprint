@@ -74,7 +74,7 @@ gem "image_processing", "~> 1.14"
 
 # This allow you to chat with any LLM easy enough
 # https://rubyllm.com/getting-started/#installation
-gem "ruby_llm", "~> 1.6"
+gem "ruby_llm", "~> 1.8"
 
 # this allows you to define a schema object
 gem "ruby_llm-schema", "~> 0.2.1"
